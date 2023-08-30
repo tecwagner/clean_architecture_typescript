@@ -4,6 +4,9 @@
 
     - TypeScript
     - NPM
+    - Sequelize
+    - Jest
+
 # Configurações no
 
     - tsconfig.json
@@ -14,4 +17,4 @@
 
 # Comando para buildar o codigo
 
-    - npx tsc    
+    - npx tsc
