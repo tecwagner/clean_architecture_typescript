@@ -64,17 +64,15 @@ describe('Order repository test', () => {
 		const orderRepository = new OrderRepository();
 		await orderRepository.create(order);
 
-		// Recuperando os dados do pedido
 		const orderModel = await OrderModel.findOne({
 			where: {
 				id: order.id,
 			},
 			include: ['items'],
 		});
-
 		expect(orderModel?.toJSON()).toMatchObject({
 			id: 'O1',
-			customer_Id: order.customerId,
+			customer_Id: (await order).customerId,
 			total: order.total(),
 			items: [
 				{
@@ -101,6 +99,8 @@ describe('Order repository test', () => {
 		const product = new Product('P1', 'Camisa P', 60);
 		await productRepository.create(product);
 
+		ProductService.increasePrice([product], 50);
+
 		// Criando um itens para o pedido
 		const orderItem = new OrderItem(
 			'I1',
@@ -110,7 +110,70 @@ describe('Order repository test', () => {
 			product.price
 		);
 
+		orderItem.changeToAddQuantity(2);
+		orderItem.changePrice(35);
+
 		const order = new Order('O1', 'C1', [orderItem]);
+
+		const orderRepository = new OrderRepository();
+		await orderRepository.create(order);
+
+		await orderRepository.update(order);
+		// Recuperando os dados do pedido
+		const orderModel = await OrderModel.findOne({
+			where: {
+				id: order.id,
+			},
+			include: ['items'],
+		});
+
+		expect(orderModel?.toJSON()).toMatchObject({
+			id: order.id,
+			customer_Id: order.customerId,
+			total: order.total(),
+			items: [
+				{
+					id: orderItem.id,
+					product_Id: orderItem.productId,
+					name: orderItem.name,
+					quantity: orderItem.quantity,
+					price: orderItem.price,
+				},
+			],
+		});
+	});
+
+	it('should find to id order', async () => {
+		// Criando um cliente para o pedido
+		const customerRepository = new CustomerRepository();
+		const customer = new Customer('C1', 'Wagner Oliveira');
+		const address = new Address('Onofre', 123, '14405123', 'Franca-SP');
+		customer.Address = address;
+		await customerRepository.create(customer);
+
+		// Criando um produto para o pedido
+		const productRepository = new ProductRepository();
+		const product = new Product('P1', 'Camisa P', 60);
+
+		await productRepository.create(product);
+
+		ProductService.increasePrice([product], 50);
+
+		// Criando um itens para o pedido
+		const orderItem = new OrderItem(
+			'I1',
+			product.id,
+			product.name,
+			2,
+			product.price
+		);
+
+		orderItem.changeToAddQuantity(2);
+		orderItem.changePrice(35);
+
+		const order = new Order('O1', 'C1', [orderItem]);
+
+		console.log('createOrder:', order);
 
 		const orderRepository = new OrderRepository();
 		await orderRepository.create(order);
@@ -123,41 +186,90 @@ describe('Order repository test', () => {
 			include: ['items'],
 		});
 
-		expect(orderModel?.toJSON()).toEqual({
-			id: order.id,
-			customer_Id: order.customerId,
-			total: order.total(),
-			items: [orderItem],
+		const orderRepo = await orderRepository.find(order.id);
+
+		expect(orderModel?.toJSON()).toMatchObject({
+			id: orderRepo.id,
+			customer_Id: orderRepo.customerId,
+			total: orderRepo.total(),
+			items: [
+				{
+					id: orderItem.id,
+					product_Id: orderItem.productId,
+					name: orderItem.name,
+					quantity: orderItem.quantity,
+					price: orderItem.price,
+				},
+			],
 		});
+	});
 
-		const product2 = new Product('P2', 'Camisa M', 60);
-		await productRepository.create(product2);
+	it('should return an array of orders', async () => {
+		// Criando um cliente para o pedido
+		const customerRepository = new CustomerRepository();
+		const customer = new Customer('C1', 'Wagner Oliveira');
+		const address = new Address('Onofre', 123, '14405123', 'Franca-SP');
+		customer.Address = address;
+		await customerRepository.create(customer);
 
+		// Criando um produto para o pedido
+		const productRepository = new ProductRepository();
+		const product = new Product('P1', 'Camisa P', 60);
+
+		await productRepository.create(product);
+
+		ProductService.increasePrice([product], 10);
+
+		// Criando um itens para o pedido
+		const orderItem = new OrderItem(
+			'I1',
+			product.id,
+			product.name,
+			2,
+			product.price
+		);
 		const orderItem2 = new OrderItem(
 			'I2',
-			product2.id,
-			product2.name,
+			product.id,
+			product.name,
 			2,
-			product2.price
+			product.price
 		);
 
-		const orderNew = new Order('O1', 'C1', [orderItem, orderItem2]);
+		const order = new Order('O1', 'C1', [orderItem, orderItem2]);
 
-		await orderRepository.update(orderNew);
+		const orderRepository = new OrderRepository();
+		await orderRepository.create(order);
 
 		// Recuperando os dados do pedido
-		const orderModelNew = await OrderModel.findOne({
-			where: {
-				id: orderNew.id,
-			},
-			include: ['items', 'items'],
+		const ordersModel = await OrderModel.findAll({
+			include: ['items'],
 		});
 
-		expect(orderModelNew?.toJSON()).toEqual({
-			id: orderNew.id,
-			customer_Id: orderNew.customerId,
-			total: orderNew.total(),
-			items: [orderItem, orderItem2],
-		});
+		expect(ordersModel).toHaveLength(1);
+
+		expect(ordersModel).toMatchObject([
+			{
+				id: 'O1',
+				customer_Id: 'C1',
+				total: order.total(),
+				items: [
+					{
+						id: orderItem.id,
+						product_Id: orderItem.productId,
+						name: orderItem.name,
+						quantity: orderItem.quantity,
+						price: orderItem.price,
+					},
+					{
+						id: orderItem2.id,
+						product_Id: orderItem2.productId,
+						name: orderItem2.name,
+						quantity: orderItem2.quantity,
+						price: orderItem2.price,
+					},
+				],
+			},
+		]);
 	});
 });
