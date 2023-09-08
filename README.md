@@ -23,9 +23,19 @@
 
     - Os usecase é representado a intenção do usuário para executar uma determinada regra operacional ou interação do usuario.
 
+    - UseCase.
+
     - Para cada usecase teremos uma resposablidade de metodo para executar.
 
-        - Utilizaremos DTO interface para representar as entredas e saidas.
-        - Criando a camada de test de customer utlizando de objetos de DTO.
+    - Utilizaremos DTO interface para representar as entradas e saidas.
+        - Criando a camada de test utlizando de objetos de DTO.
+        - Que representa a entrada de dados e a estrutura da saida
+        - Customer
 
-            - Que representa a entrada de dados e a estrutura da saida
+            - Find
+            - Create
+            - Update
+            - FindAll
+
+
+      
