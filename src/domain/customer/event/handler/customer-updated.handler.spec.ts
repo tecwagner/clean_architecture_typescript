@@ -4,9 +4,8 @@ import Customer from '../../entity/customer';
 import Address from '../../value-object/address';
 import SendEmailWhenCustomerIsUpdatedHandler from './send-email-when-is-customer-updated.handler';
 
-
 describe('Domain Events Test Customer Updated Handler', () => {
-	it('should notify event handlers update address', async () => {
+	it('should notify event handlers update address', () => {
 		// const customerRepository = new CustomerRepository();
 		const eventDispatcher = new EventDispatcher();
 		const eventHandler = new SendEmailWhenCustomerIsUpdatedHandler();
