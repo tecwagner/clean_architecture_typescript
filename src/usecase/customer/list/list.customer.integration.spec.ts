@@ -1,30 +1,42 @@
+import {Sequelize} from 'sequelize-typescript';
 import CustomerFactory from '../../../domain/customer/entity/factory/customer.factory';
 import Address from '../../../domain/customer/value-object/address';
 import ListCustomersUseCase from './list.customer.usecase';
+import CustomerModel from '../../../infrastructure/sequelize/customer/model/customer.model';
+import CustomerRepository from '../../../infrastructure/sequelize/customer/repository/customer.repository';
 
-const customer1 = CustomerFactory.createWithAddress(
-	'Wagner Oliveira',
-	new Address('Onofre', 1234, '148865445', 'Franca-SP')
-);
-const customer2 = CustomerFactory.createWithAddress(
-	'Amanda Daniele',
-	new Address('Onofre', 1234, '148865445', 'Franca-SP')
-);
+describe('Integration test for list customer use case', () => {
+	let sequelize: Sequelize;
 
-// Criando um repository feak com os mestodos a ser implementados
-const MockRespository = () => {
-	return {
-		find: jest.fn(),
-		findAll: jest.fn().mockReturnValue(Promise.resolve([customer1, customer2])), // busca o customer exitente no mock,
-		create: jest.fn(),
-		update: jest.fn(),
-	};
-};
+	// Config to sequelize instance
+	beforeEach(async () => {
+		sequelize = new Sequelize({
+			dialect: 'sqlite',
+			storage: ':memory:',
+			logging: false,
+			sync: {force: true},
+		});
 
-describe('Unit test for list customer use case', () => {
+		//adicionando o model ao test
+		await sequelize.addModels([CustomerModel]);
+		await sequelize.sync();
+	});
+	afterEach(async () => {
+		await sequelize.close();
+	});
 	it('should list a customer', async () => {
-		const mockRespository = MockRespository();
-		const useCase = new ListCustomersUseCase(mockRespository);
+		const customerRepository = new CustomerRepository();
+		const customer1 = CustomerFactory.createWithAddress(
+			'Wagner Oliveira',
+			new Address('Onofre', 1234, '148865445', 'Franca-SP')
+		);
+		const customer2 = CustomerFactory.createWithAddress(
+			'Amanda Daniele',
+			new Address('Onofre', 1234, '148865445', 'Franca-SP')
+		);
+		await customerRepository.create(customer1);
+		await customerRepository.create(customer2);
+		const useCase = new ListCustomersUseCase(customerRepository);
 
 		const output = await useCase.execute({});
 

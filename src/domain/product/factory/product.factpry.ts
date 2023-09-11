@@ -3,7 +3,11 @@ import Product from '../entity/product';
 import ProductInterfce from '../entity/product.interface';
 
 export default class ProductFactory {
-	public static create(
+	public static create(name: string, price: number): Product {
+		const product = new Product(uuid(), name, price);
+		return product;
+	}
+	public static createAndType(
 		type: string,
 		name: string,
 		price: number
