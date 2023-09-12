@@ -11,7 +11,6 @@ export default class ListCustomersUseCase {
 
 	async execute(input: InputListCustomerDto): Promise<OutputListCustomerDto> {
 		const customers = await this._customerRepository.findAll();
-		console.log(customers);
 
 		return OutputMapper.toOutputMapper(customers);
 	}
