@@ -1,6 +1,6 @@
-import {app, sequelize} from '../express';
+import {app, sequelize} from '../../express';
 import request from 'supertest';
-import {customerRoute} from '../routes/customer/customer.route';
+import {customerRoute} from '../../routes/customer/customer.route';
 
 describe('E2E test for customer', () => {
 	// Inicia o squelize
@@ -13,7 +13,7 @@ describe('E2E test for customer', () => {
 		await sequelize.close();
 	});
 
-	it('should createa a customer', async () => {
+	it('should create a customer', async () => {
 		const response = await request(app)
 			.post('/customer')
 			.send({
@@ -34,7 +34,7 @@ describe('E2E test for customer', () => {
 		expect(response.body.address.city).toBe('Franca-SP');
 	});
 
-	it('should not create a customer', async () => {
+	it('should error 500 create a customer', async () => {
 		const response = await request(app).post('/customer').send({
 			name: 'Wagner Oliveira',
 		});
@@ -111,7 +111,7 @@ describe('E2E test for customer', () => {
 		expect(findResponse.body.address.zip).toBe('14405123');
 		expect(findResponse.body.address.city).toBe('Franca-SP');
 	});
-	it('should not find id a customer', async () => {
+	it('should erro 500 find id a customer', async () => {
 		const response = await request(app)
 			.post('/customer')
 			.send({
@@ -163,8 +163,7 @@ describe('E2E test for customer', () => {
 		expect(response1.status).toBe(201);
 
 		await request(app).put(`/customer`);
-
-		expect(response1.status).toBe(201);
+		
 		expect(response1.body.name).toBe('Wagner Oliveira Rodrigues');
 		expect(response1.body.address.street).toBe('Onofre Raimundo Braga');
 		expect(response1.body.address.number).toBe(1234);
