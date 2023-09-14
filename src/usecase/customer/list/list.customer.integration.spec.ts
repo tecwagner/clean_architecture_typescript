@@ -1,5 +1,5 @@
 import {Sequelize} from 'sequelize-typescript';
-import CustomerFactory from '../../../domain/customer/entity/factory/customer.factory';
+import CustomerFactory from '../../../domain/customer/factory/customer.factory';
 import Address from '../../../domain/customer/value-object/address';
 import ListCustomersUseCase from './list.customer.usecase';
 import CustomerModel from '../../../infrastructure/sequelize/customer/model/customer.model';
