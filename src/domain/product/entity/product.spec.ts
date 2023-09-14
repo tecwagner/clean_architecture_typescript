@@ -4,19 +4,19 @@ describe('Product Unit Tests', () => {
 	it('should throw error when id is empty', () => {
 		expect(() => {
 			let product = new Product('', 'notebook', 3000);
-		}).toThrowError('Id is required');
+		}).toThrowError('product: Id is required');
 	});
 
 	it('should throw error when Name is empty', () => {
 		expect(() => {
 			let product = new Product('01', '', 3000);
-		}).toThrowError('Name is required');
+		}).toThrowError('product: Name is required');
 	});
 
 	it('should throw error when price is less than zero', () => {
 		expect(() => {
 			let product = new Product('01', 'notebook', -1);
-		}).toThrowError('Price must be greate than zero');
+		}).toThrowError('product: Price must be greate than zero');
 	});
 
 	it('should throw error when id, name is and price are empty', () => {

@@ -76,6 +76,8 @@
 
 # Implementando o Notification Patterns
 
+    - O notification pattern nos auxilia como um container acumulador de erros para que possamos de uma forma mais simples retornarmos nossos erros todos de uma vez evitando assim a geração excessiva de exceções.
+
     - Será criado um grupo de notification para tratativa de erros.
 
         - Em @shared/notification
@@ -98,3 +100,23 @@
             - Criando um metodo em Notification.
 
                 - errors(): Que retorna uma lista de erros que estão armazenadas em NotificationErrorProps[]
+
+# Implementando validação criando interface
+
+    - Em @shared/validator/validator.interface.ts
+    - A interaface é uma forma generica para ser reutilizada
+
+# Implementando a Validator a classe de entidade de customer
+
+    - Criando a pasta de validator dentro do src/domain/customer/validator
+
+        - A classe de CustomerYupValidator utilizara de uma biblioteca externa para validação.
+
+            - npm install --save yup
+            - npm install --save @types/yup
+
+# Criando factory para validação
+
+    - Criando a pasta de validator dentro do src/domain/customer/factory
+
+        - customer.validator.factory.ts

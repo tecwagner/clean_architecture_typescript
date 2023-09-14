@@ -1,5 +1,6 @@
 import Entity from '../../@shared/entity/entity.abstract';
 import NotificationError from '../../@shared/notification/notification.error';
+import CustomerValidatorFactory from '../factory/customer.validator.factory';
 import Address from '../value-object/address';
 import CustomerInterface from './customer.interface';
 
@@ -41,18 +42,8 @@ export default class Customer extends Entity implements CustomerInterface {
 	}
 
 	validate() {
-		if (this._id.length === 0) {
-			this.notification.addError({
-				context: 'customer',
-				message: 'Id is required',
-			});
-		}
-		if (this._name.length === 0) {
-			this.notification.addError({
-				context: 'customer',
-				message: 'Name is required',
-			});
-		}
+		// A CustomerValidatorFactory: é responsavél por validar a entidade de classe
+		CustomerValidatorFactory.create().validate(this);
 	}
 
 	// Adiciona pontos ao usuario

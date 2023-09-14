@@ -1,4 +1,4 @@
-import CustomerFactory from '../../../domain/customer/entity/factory/customer.factory';
+import CustomerFactory from '../../../domain/customer/factory/customer.factory';
 import Address from '../../../domain/customer/value-object/address';
 import UpdateCustomerUseCase from './update.customer.usecase';
 
