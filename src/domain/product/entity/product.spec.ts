@@ -19,6 +19,14 @@ describe('Product Unit Tests', () => {
 		}).toThrowError('Price must be greate than zero');
 	});
 
+	it('should throw error when id, name is and price are empty', () => {
+		expect(() => {
+			let product = new Product('', '', -1);
+		}).toThrowError(
+			'product: Id is required,product: Name is required,product: Price must be greate than zero'
+		);
+	});
+
 	it('should change name', () => {
 		const product = new Product('02', 'Cadeira Gamer', 0);
 

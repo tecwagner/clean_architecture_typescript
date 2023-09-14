@@ -73,3 +73,28 @@
 
         - customer.route.ts
         - importar a rota para o express.ts
+
+# Implementando o Notification Patterns
+
+    - Será criado um grupo de notification para tratativa de erros.
+
+        - Em @shared/notification
+
+        - Os erros serão tratados e filtrados para atender todo as notificações da aplicação
+
+    - Criando uma entidade de classe abstrata para  ser o contrato de Notificações
+
+        - Em @shared/entity/entity.abstract.ts
+
+            - Essa classe será representadas para as demais classes como super.
+            - Dentro do validate de cada entidade será adicionado as notification
+
+    - Criando NotificationError - Diferentes.
+
+        - Em @shared/notification/notification.error.ts
+
+            - Implementar a chamada de verificação de errors dentro das entidades
+
+            - Criando um metodo em Notification.
+
+                - errors(): Que retorna uma lista de erros que estão armazenadas em NotificationErrorProps[]

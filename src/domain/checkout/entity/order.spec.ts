@@ -5,19 +5,27 @@ describe('Order Unit Tests', () => {
 	it('should throw error when id is empty', () => {
 		expect(() => {
 			let order = new Order('', '123', []);
-		}).toThrowError('Id is required');
+		}).toThrowError('order: Id is required');
 	});
 
 	it('should throw error when customer id is empty', () => {
 		expect(() => {
 			let order = new Order('1', '', []);
-		}).toThrowError('Customer Id is required');
+		}).toThrowError('order: Customer Id is required');
 	});
 
 	it('should throw error when Item qtd is empty', () => {
 		expect(() => {
 			let order = new Order('1', '321', []);
-		}).toThrowError('Item qtd must be greater than 0');
+		}).toThrowError('order: Item qtd must be greater than 0');
+	});
+
+	it('should throw error when id, customer, Item qtd is empty', () => {
+		expect(() => {
+			let order = new Order('', '', []);
+		}).toThrowError(
+			'order: Id is required,order: Customer Id is required,order: Item qtd must be greater than 0'
+		);
 	});
 
 	it('should calculate total', () => {

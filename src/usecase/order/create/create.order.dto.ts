@@ -1,9 +1,9 @@
 export interface InputCreateOrderDto {
 	id: string;
-	customer_Id: string;
+	customerId: string;
 	items: {
 		id: string;
-		product_Id: string;
+		productId: string;
 		name: string;
 		quantity: number;
 		price: number;
@@ -11,7 +11,7 @@ export interface InputCreateOrderDto {
 }
 export interface OutputCreateOrderDto {
 	id: string;
-	customer_Id: string;
+	customerId: string;
 	total: number;
 	items: {
 		id: string;

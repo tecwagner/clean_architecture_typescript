@@ -1,4 +1,3 @@
-
 import Address from '../value-object/address';
 import Customer from './customer';
 
@@ -6,12 +5,17 @@ describe('Customer unit test', () => {
 	it('should throw error when id is empty', () => {
 		expect(() => {
 			let customer = new Customer('', 'John');
-		}).toThrowError('Id is required');
+		}).toThrowError('customer: Id is required');
 	});
 	it('should throw error when name is empty', () => {
 		expect(() => {
 			let customer = new Customer('123', '');
-		}).toThrowError('Name is required');
+		}).toThrowError('customer: Name is required');
+	});
+	it('should throw error when name is and id are empty', () => {
+		expect(() => {
+			let customer = new Customer('', '');
+		}).toThrowError('customer: Id is required,customer: Name is required');
 	});
 	it('should change name', () => {
 		// Arrange
@@ -34,6 +38,7 @@ describe('Customer unit test', () => {
 
 		expect(customer.isActive()).toBe(true);
 	});
+
 	it('should deactivate customer', () => {
 		const customer = new Customer('2', 'John 2');
 
@@ -41,6 +46,7 @@ describe('Customer unit test', () => {
 
 		expect(customer.isActive()).toBe(false);
 	});
+
 	it('should throw error when address is undefined when you activate a customer', () => {
 		expect(() => {
 			const customer = new Customer('3', 'John 3');

@@ -1,18 +1,24 @@
+import Entity from '../../@shared/entity/entity.abstract';
+import NotificationError from '../../@shared/notification/notification.error';
 import OrderInterface from './order.interface';
 import OrderItem from './order_Item';
 
-export default class Order implements OrderInterface {
-	private _id: string;
+export default class Order extends Entity implements OrderInterface {
 	private _customerId: string;
 	private _items: OrderItem[] = [];
 	private _total: number;
 
 	constructor(id: string, customerId: string, items: OrderItem[]) {
+		super();
 		this._id = id;
 		this._customerId = customerId;
 		this._items = items;
 		this._total = this.total();
 		this.validate();
+
+		if (this.notification.hasErrors()) {
+			throw new NotificationError(this.notification.errors());
+		}
 	}
 
 	get id(): string {
@@ -29,16 +35,28 @@ export default class Order implements OrderInterface {
 
 	validate(): boolean {
 		if (this._id.length === 0) {
-			throw new Error('Id is required');
+			this.notification.addError({
+				context: 'order',
+				message: 'Id is required',
+			});
 		}
 		if (this._customerId.length === 0) {
-			throw new Error('Customer Id is required');
+			this.notification.addError({
+				context: 'order',
+				message: 'Customer Id is required',
+			});
 		}
 		if (this._items.length === 0) {
-			throw new Error('Item qtd must be greater than 0');
+			this.notification.addError({
+				context: 'order',
+				message: 'Item qtd must be greater than 0',
+			});
 		}
 		if (this._items.some((item) => item.quantity <= 0)) {
-			throw new Error('Quantity must be greater than 0');
+			this.notification.addError({
+				context: 'order',
+				message: 'Quantity must be greater than 0',
+			});
 		}
 
 		return true;

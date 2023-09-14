@@ -3,18 +3,18 @@ import {v4 as uuid} from 'uuid';
 
 const input = {
 	id: uuid(),
-	customer_Id: uuid(),
+	customerId: uuid(),
 	items: [
 		{
 			id: uuid(),
-			product_Id: uuid(),
+			productId: uuid(),
 			name: 'noteboook',
 			price: 4000,
 			quantity: 1,
 		},
 		{
 			id: uuid(),
-			product_Id: uuid(),
+			productId: uuid(),
 			name: 'monitor led 30 polegadas',
 			price: 4000,
 			quantity: 1,
@@ -41,7 +41,7 @@ describe('Unit Test create order use case', () => {
 
 		expect(output).toMatchObject({
 			id: output.id,
-			customer_Id: output.customer_Id,
+			customerId: output.customerId,
 			items: [
 				{
 					id: output.items[0].id,

@@ -4,10 +4,10 @@ import OrderItem from '../order_Item';
 
 interface IOrderFactory {
 	id: string;
-	customer_Id: string;
+	customerId: string;
 	items: {
 		id: string;
-		product_Id: string;
+		productId: string;
 		name: string;
 		quantity: number;
 		price: number;
@@ -19,13 +19,13 @@ export default class OrderFactory {
 		const items = orderProps.items.map((item) => {
 			return new OrderItem(
 				item.id,
-				item.product_Id,
+				item.productId,
 				item.name,
 				item.quantity,
 				item.price
 			);
 		});
 
-		return new Order(orderProps.id, orderProps.customer_Id, items);
+		return new Order(orderProps.id, orderProps.customerId, items);
 	}
 }
