@@ -102,5 +102,5 @@
     "src/**/*.ts" //Definindo o caminho para iniciar o projetos
     ,
     "src/infrastructure/sequelize/order/model/order.model.ts"
-  ]
+, "src/usecase/mappers/mapper.order.ts"  ]
 }

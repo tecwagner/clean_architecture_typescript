@@ -3,6 +3,7 @@ import OrderItemModel from '../model/order-Item.model';
 import OrderModel from '../model/order.model';
 import OrderItem from '../../../../domain/checkout/entity/order_Item';
 import OrderRepositoryInterface from '../../../../domain/checkout/repository/order-repository.interface';
+import OrderInterface from '../../../../domain/checkout/entity/order.interface';
 
 export default class OrderRepository implements OrderRepositoryInterface {
 	async create(order: Order): Promise<void> {
@@ -14,10 +15,11 @@ export default class OrderRepository implements OrderRepositoryInterface {
 					total: order.total(),
 					items: order.items.map((item) => ({
 						id: item.id,
+						product_Id: item.productId,
 						name: item.name,
 						price: item.price,
-						product_Id: item.productId,
 						quantity: item.quantity,
+						order_Id: order.id,
 					})),
 				},
 				{
@@ -25,7 +27,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
 				}
 			);
 		} catch (error) {
-			throw new Error('Unable to created order');
+			throw new Error('Unable to created order' + error);
 		}
 	}
 

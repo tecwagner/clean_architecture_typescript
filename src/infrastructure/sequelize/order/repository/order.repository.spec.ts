@@ -50,16 +50,15 @@ describe('Order repository test', () => {
 		const product = new Product('P1', 'Camisa P', 60);
 		await productRepository.create(product);
 
-		// Criando um itens para o pedido
-		const orderItem = new OrderItem(
-			'I1',
-			product.id,
-			product.name,
-			2,
-			product.price
-		);
+		const product1 = new Product('P2', 'Camisa GG', 80);
+		await productRepository.create(product1);
 
-		const order = new Order('O1', 'C1', [orderItem]);
+		const items = [
+			new OrderItem('I1', product.id, product.name, 2, product.price),
+			new OrderItem('I2', product1.id, product1.name, 2, product1.price),
+		];
+
+		const order = new Order('O1', 'C1', items);
 
 		const orderRepository = new OrderRepository();
 		await orderRepository.create(order);
@@ -70,20 +69,20 @@ describe('Order repository test', () => {
 			},
 			include: ['items'],
 		});
-		expect(orderModel?.toJSON()).toMatchObject({
-			id: 'O1',
-			customer_Id: (await order).customerId,
-			total: order.total(),
-			items: [
-				{
-					id: orderItem.id,
-					product_Id: orderItem.productId,
-					name: orderItem.name,
-					quantity: orderItem.quantity,
-					price: orderItem.price,
-				},
-			],
-		});
+
+		const expectedOutput = {
+			id: order.id,
+			customer_Id: order.customerId,
+			items: order.items.map((item) => ({
+				id: item.id,
+				product_Id: item.productId,
+				name: item.name,
+				price: item.price,
+				quantity: item.quantity,
+				order_Id: order.id,
+			})),
+		};
+		expect(orderModel?.toJSON()).toMatchObject(expectedOutput);
 	});
 
 	it('should update add mush item order', async () => {
@@ -138,6 +137,7 @@ describe('Order repository test', () => {
 					name: orderItem.name,
 					quantity: orderItem.quantity,
 					price: orderItem.price,
+					order_Id: order.id,
 				},
 			],
 		});
