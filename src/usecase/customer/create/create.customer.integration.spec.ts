@@ -6,7 +6,7 @@ import CustomerRepository from '../../../infrastructure/sequelize/customer/repos
 import Customer from '../../../domain/customer/entity/customer';
 import Address from '../../../domain/customer/value-object/address';
 
-describe('Unit Test create customer use case', () => {
+describe('Integration Test create customer use case', () => {
 	let sequelize: Sequelize;
 
 	// Config to sequelize instance

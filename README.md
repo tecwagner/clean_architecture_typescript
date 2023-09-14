@@ -25,6 +25,13 @@
 
     - UseCase.
 
+      - Customer/ Product / Order
+
+        - Find
+        - Create
+        - Update
+        - FindAll
+
     - Para cada usecase teremos uma resposablidade de metodo para executar.
 
     - Utilizaremos DTO interface para representar as entradas e saidas.
