@@ -2,10 +2,10 @@ export interface InputListOrderDto {}
 
 type Order = {
 	id: string;
-	customer_Id: string;
+	customerId: string;
 	items: {
 		id: string;
-		product_Id: string;
+		productId: string;
 		name: string;
 		quantity: number;
 		price: number;

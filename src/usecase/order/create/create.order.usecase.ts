@@ -16,7 +16,7 @@ export default class CreateOrderUseCase {
 
 		return {
 			id: order.id,
-            customer_Id: order.customerId,            
+			customerId: order.customerId,
 			items: order.items,
 			total: order.total(),
 		};

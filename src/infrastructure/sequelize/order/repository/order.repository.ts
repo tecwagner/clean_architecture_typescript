@@ -7,6 +7,7 @@ import OrderInterface from '../../../../domain/checkout/entity/order.interface';
 
 export default class OrderRepository implements OrderRepositoryInterface {
 	async create(order: Order): Promise<void> {
+		console.log('create order FK:', order);
 		try {
 			await OrderModel.create(
 				{
@@ -27,7 +28,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
 				}
 			);
 		} catch (error) {
-			throw new Error('Unable to created order' + error);
+			throw new Error('Unable to created order');
 		}
 	}
 

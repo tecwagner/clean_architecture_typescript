@@ -6,10 +6,10 @@ export class OutputMapper {
 		return {
 			orders: order.map((order) => ({
 				id: order.id,
-				customer_Id: order.customerId,
+				customerId: order.customerId,
 				items: order.items.map((item) => ({
 					id: item.id,
-					product_Id: item.productId,
+					productId: item.productId,
 					name: item.name,
 					quantity: item.quantity,
 					price: item.price,
