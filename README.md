@@ -6,6 +6,8 @@
     - NPM
     - Sequelize
     - Jest
+    - Supertest
+    - yup(validator)
 
 # Configurações no
 
@@ -120,3 +122,21 @@
     - Criando a pasta de validator dentro do src/domain/customer/factory
 
         - customer.validator.factory.ts
+
+# Presenter
+
+    - Será responsavel por organizar a nossa transformação de API Rest para JSON ou XML.
+    - Presenter ira apresentar os dados de acordo com a solicitação da camada de controller.
+
+    - Instale as bibliotecas.
+        - npm i jstoxml
+        - npm i -D @types/jstoxml
+
+    - Criando a pasta de presenter
+        - src/infrastructure/api/presenters
+
+    - O nosso sistema deve ser capaz de retorna dados em XML e JSON.
+
+    - Em src/infrastructure/api/routes
+
+        - O nosso customer está configurado para retornar os dados seja em Json ou xml

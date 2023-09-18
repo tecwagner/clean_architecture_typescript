@@ -4,6 +4,7 @@ import CustomerRepository from '../../../sequelize/customer/repository/customer.
 import ListCustomersUseCase from '../../../../usecase/customer/list/list.customer.usecase';
 import FindCustomerUsecase from '../../../../usecase/customer/find/find.customer.usecase';
 import UpdateCustomerUseCase from '../../../../usecase/customer/update/update.customer.usecase';
+import CustomerPresenter from '../../presenters/customer-presenter/customer.presenter';
 
 export const customerRoute = express.Router();
 
@@ -35,7 +36,14 @@ customerRoute.get('/', async (req: Request, res: Response) => {
 	try {
 		const output = await usecase.execute({});
 
-		res.status(200).send(output);
+		// O retorno do DTO <> Resultado API
+		// Tudo é JSON. E se for preciso retorna um resultado em XML?
+		// Kafka
+		// res.status(200).send(output);
+		res.format({
+			json: async () => res.status(200).send(output),
+			xml: async () => res.status(200).send(CustomerPresenter.toXML(output)),
+		});
 	} catch (error) {
 		res.status(500).send(error);
 	}
