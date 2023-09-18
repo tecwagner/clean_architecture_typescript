@@ -83,6 +83,17 @@ describe('E2E test for customer', () => {
 		const customer1 = listResponse.body.customers[1];
 		expect(customer1.name).toBe('Amanda Daniele Silva');
 		expect(customer1.address.street).toBe('Onofre Raimundo Braga');
+
+		//List of customers in XML
+		const listResponseXML = await request(app)
+			.get('/customer')
+			.set('Accept', 'application/xml')
+			.send();
+
+		expect(listResponseXML.status).toBe(200);
+		expect(listResponseXML.text).toContain(
+			`<?xml version="1.0" encoding="UTF-8"?>`
+		);
 	});
 
 	it('should find id a customer', async () => {
@@ -163,7 +174,7 @@ describe('E2E test for customer', () => {
 		expect(response1.status).toBe(201);
 
 		await request(app).put(`/customer`);
-		
+
 		expect(response1.body.name).toBe('Wagner Oliveira Rodrigues');
 		expect(response1.body.address.street).toBe('Onofre Raimundo Braga');
 		expect(response1.body.address.number).toBe(1234);
