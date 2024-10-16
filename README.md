@@ -155,15 +155,15 @@
 
     - Crie a pasta de presenters em src/infrastructure/api/presenters. O sistema deve retornar dados em XML e JSON, e o cliente deve estar configurado para essa funcionalidade em src/infrastructure/api/routes.
 
-# Identificando e Encerrando Processos pelo Terminal
+## Identificando e Encerrando Processos pelo Terminal
 
-    - Listar processos que estão usando a porta 3000: Execute o comando abaixo para encontrar o processo que está usando a porta 3000:
+1. Listar processos que estão usando a porta 3000: Execute o comando abaixo para encontrar o processo que está usando a porta 3000:
 
-        bash
+        ```bash
         sudo lsof -i :3000
 
-    - Encerrar o processo: Após executar o comando acima, você verá uma lista de processos usando a porta. Localize o PID (Process ID) do processo que está utilizando a porta e então execute o seguinte comando para matá-lo:
+2. Encerrar o processo: Após executar o comando acima, você verá uma lista de processos usando a porta. Localize o PID (Process ID) do processo que está utilizando a porta e então execute o seguinte comando para matá-lo:
 
-        bash
+        ```bash
         Copiar código
         sudo kill -9 <PID>
