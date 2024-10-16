@@ -165,5 +165,4 @@
 2. Encerrar o processo: Após executar o comando acima, você verá uma lista de processos usando a porta. Localize o PID (Process ID) do processo que está utilizando a porta e então execute o seguinte comando para matá-lo:
 
         ```bash
-        Copiar código
         sudo kill -9 <PID>
