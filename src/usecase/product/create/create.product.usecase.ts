@@ -1,4 +1,4 @@
-import ProductFactory from '../../../domain/product/factory/product.factpry';
+import ProductFactory from '../../../domain/product/factory/product.factory';
 import ProductRepositoryInterface from '../../../domain/product/repository/product-repository.interface';
 import {
 	InputCreateProductDto,

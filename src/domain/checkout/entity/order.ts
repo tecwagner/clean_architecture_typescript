@@ -6,14 +6,13 @@ import OrderItem from './order_Item';
 export default class Order extends Entity implements OrderInterface {
 	private _customerId: string;
 	private _items: OrderItem[] = [];
-	private _total: number;
 
 	constructor(id: string, customerId: string, items: OrderItem[]) {
 		super();
 		this._id = id;
 		this._customerId = customerId;
 		this._items = items;
-		this._total = this.total();
+		
 		this.validate();
 
 		if (this.notification.hasErrors()) {
@@ -32,6 +31,8 @@ export default class Order extends Entity implements OrderInterface {
 	get items(): OrderItem[] {
 		return this._items;
 	}
+
+
 
 	validate(): boolean {
 		if (this._id.length === 0) {
@@ -66,4 +67,12 @@ export default class Order extends Entity implements OrderInterface {
 	total(): number {
 		return this._items.reduce((acc, item) => acc + item.orderItemTotal(), 0);
 	}
+
+	addItem(item: OrderItem): void {
+        this._items.push(item);
+    }
+
+    removeItem(itemId: string): void {
+        this._items = this._items.filter(item => item.id !== itemId);
+    }
 }

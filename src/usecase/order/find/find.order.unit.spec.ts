@@ -8,7 +8,7 @@ const order = {
 		{
 			id: uuid(),
 			productId: uuid(),
-			name: 'noteboook',
+			name: 'notebook',
 			price: 4000,
 			quantity: 1,
 		},
@@ -20,6 +20,9 @@ const order = {
 			quantity: 1,
 		},
 	],
+	total: function () {
+		return this.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+	},
 };
 
 const MockRespository = () => {
@@ -43,7 +46,7 @@ describe('Unit Test find order use case', () => {
 
 		const output = {
 			id: order.id,
-			customer_Id: order.customerId,
+			customer_Id: order.customerId,	
 			items: order.items.map((item) => ({
 				id: item.id,
 				product_Id: item.productId,
@@ -51,6 +54,7 @@ describe('Unit Test find order use case', () => {
 				quantity: item.quantity,
 				price: item.price,
 			})),
+			total: order.total(),
 		};
 
 		const result = await usecase.execute(input);
