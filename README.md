@@ -1,33 +1,36 @@
 # clean_architecture_typescript
 
-# Tecnologias Utilizadas
+## Tecnologias Utilizadas
+- TypeScript
+- NPM
+- Sequelize
+- Jest
+- Supertest
+- Yup (validator)
 
-    - TypeScript
-    - NPM
-    - Sequelize
-    - Jest
-    - Supertest
-    - yup(validator)
+## Configurações
 
-# Configurações no
+- **tsconfig.json**: Arquivo de configuração do TypeScript.
 
-    - tsconfig.json
+## Iniciando o Projeto com TypeScript
 
-# Iniciando o com o typescrit
+1. Para iniciar o projeto com TypeScript, execute:
 
-    - npx tsc -init
+   ```bash
+   npx tsc --init
 
-# Comando para buildar o codigo
+2. Para compilar o código TypeScript, use:
 
+    ```bash
     - npx tsc
+3. Para executar os testes, utilize:
 
-# Comando para Executar os teste
-
+    ```bash
     - npm run test
 
 # Criando os UseCase
 
-    - Os usecase é representado a intenção do usuário para executar uma determinada regra operacional ou interação do usuario.
+    - Os use cases representam a intenção do usuário para executar uma determinada regra operacional ou interação. Eles incluem:
 
     - UseCase.
 
@@ -40,9 +43,8 @@
 
     - Para cada usecase teremos uma resposablidade de metodo para executar.
 
-    - Utilizaremos DTO interface para representar as entradas e saidas.
-        - Criando a camada de test utlizando de objetos de DTO.
-        - Que representa a entrada de dados e a estrutura da saida
+    - Utilizaremos DTO (Data Transfer Object) para representar as entradas e saídas, criando uma camada de testes utilizando objetos de DTO que representam a entrada de dados e a estrutura da saída.
+
         - Customer/ Product / Order
 
             - Find
@@ -50,51 +52,65 @@
             - Update
             - FindAll
 
-# Criando a camada de API Rest com Express
+## Criando a camada de API Rest com Express
 
+1. Instale as dependências:
+
+    ```bash
     - npm i express @types/express dotenv
     - npm i nodemon @types/nodemon
 
-    - A camada de API rest se comunica com mundo externo então ela será implementada dentro da nossa
+2. A camada de API Rest será implementada nos seguintes diretórios:   
 
         - infrastructure/api/express.
         - infrastructure/api/server.
 
-        - Será criado o servidor da aplicação utilizada o express.
+3. Configure o servidor da aplicação utilizando o Express e adicione a seguinte linha no seu package.json:
 
-    - package.json - configurar o cominho para executar o servidor da aplicação utilizada.
+    ```bash
+    - "dev": "nodemon src/infrastructure/api/server.ts"
 
-        - "dev": "nodemon src/infrastructure/api/server.ts"
+4. Execute o servidor da aplicação utilizando:
 
-        - execute o servidor da aplicação utilizando: npm run dev
+    ```bash
+    - npm run dev    
 
-# Implementando os test e2e
+## Implementando os Testes End-to-End (e2e)
 
-    - Iremos utilizar o supertest para o desenvolvimento: npm i -D supertest
-    - Instalar o type do supertest: npm i --save-dev @types/supertest
+1. Utilizaremos o Supertest para o desenvolvimento dos testes e2e. Instale as dependências necessárias:
 
-# Criar rotas da api
+    ```bash
+    - npm install --save-dev supertest
+    - npm install --save-dev @types/supertest
 
-    - api/routes
 
-        - customer.route.ts
-        - importar a rota para o express.ts
+## Criando as Rotas da API
 
-# Implementando o Notification Patterns
+1. As rotas da API devem ser criadas em api/routes, por exemplo:
 
-    - O notification pattern nos auxilia como um container acumulador de erros para que possamos de uma forma mais simples retornarmos nossos erros todos de uma vez evitando assim a geração excessiva de exceções.
+    - customer.route.ts
 
-    - Será criado um grupo de notification para tratativa de erros.
+    - Lembre-se de importar as rotas no express.ts.
 
-        - Em @shared/notification
 
-        - Os erros serão tratados e filtrados para atender todo as notificações da aplicação
+
+## Implementando o Notification Pattern
+
+    - O Notification Pattern é utilizado como um container acumulador de erros, permitindo que retornemos todos os erros de uma vez, evitando a geração excessiva de exceções.
+
+1. Estrutura de Implementação
+
+    - Crie um grupo de notificações em @shared/notification para tratar os erros da aplicação.
+
+    - Implemente uma classe abstrata em @shared/entity/entity.abstract.ts como contrato para as notificações.
+
+    - Crie diferentes tipos de erros em @shared/notification/notification.error.ts.
 
     - Criando uma entidade de classe abstrata para  ser o contrato de Notificações
 
         - Em @shared/entity/entity.abstract.ts
 
-            - Essa classe será representadas para as demais classes como super.
+            - Essa classe será representada para as demais classes como super.
             - Dentro do validate de cada entidade será adicionado as notification
 
     - Criando NotificationError - Diferentes.
@@ -107,45 +123,39 @@
 
                 - errors(): Que retorna uma lista de erros que estão armazenadas em NotificationErrorProps[]
 
-# Implementando validação criando interface
+## Implementando validação criando interface
+
+1. Crie uma interface de validação em @shared/validator/validator.interface.ts.
 
     - Em @shared/validator/validator.interface.ts
-    - A interaface é uma forma generica para ser reutilizada
+    - A interface deve ser genérica e reutilizável
 
-# Implementando a Validator a classe de entidade de customer
+## Validação da Entidade de Cliente
 
-    - Criando a pasta de validator dentro do src/domain/customer/validator
+1. Crie a pasta de validators dentro de src/domain/customer/validator, onde a classe CustomerYupValidator utilizará a biblioteca Yup para validação:
+    
+    ```bash
+    - npm install --save yup
+    - npm install --save @types/yup
 
-        - A classe de CustomerYupValidator utilizara de uma biblioteca externa para validação.
+## Criando Factory para Validação
 
-            - npm install --save yup
-            - npm install --save @types/yup
+    - Crie uma pasta de validators dentro de src/domain/customer/factory e implemente customer.validator.factory.ts.
 
-# Criando factory para validação
+## Presenter
 
-    - Criando a pasta de validator dentro do src/domain/customer/factory
+1. O Presenter é responsável por transformar a API Rest em JSON ou XML. Para isso, instale as bibliotecas necessárias:
 
-        - customer.validator.factory.ts
-
-# Presenter
-
-    - Será responsavel por organizar a nossa transformação de API Rest para JSON ou XML.
-    - Presenter ira apresentar os dados de acordo com a solicitação da camada de controller.
-
-    - Instale as bibliotecas.
+        ```bash
         - npm i jstoxml
         - npm i -D @types/jstoxml
 
-    - Criando a pasta de presenter
-        - src/infrastructure/api/presenters
+    - Presenter ira apresentar os dados de acordo com a solicitação da camada de controller.
+        
 
-    - O nosso sistema deve ser capaz de retorna dados em XML e JSON.
+    - Crie a pasta de presenters em src/infrastructure/api/presenters. O sistema deve retornar dados em XML e JSON, e o cliente deve estar configurado para essa funcionalidade em src/infrastructure/api/routes.
 
-    - Em src/infrastructure/api/routes
-
-        - O nosso customer está configurado para retornar os dados seja em Json ou xml
-
-# Identificar e encerrar o processo pelo terminal
+# Identificando e Encerrando Processos pelo Terminal
 
     - Listar processos que estão usando a porta 3000: Execute o comando abaixo para encontrar o processo que está usando a porta 3000:
 
