@@ -26,7 +26,7 @@ customerRoute.post('/', async (req: Request, res: Response) => {
 
 		res.status(201).send(output);
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).send({ error: 'Something went wrong!' });
 	}
 });
 

@@ -1,0 +1,107 @@
+POST http://localhost:3000/customer HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Joe Doe",
+    "address": {
+        "street": "123 Main St",
+        "number": 123,
+        "city": "Anytown",
+        "zip": "123456"
+    }
+}
+
+#####
+
+GET http://localhost:3000/customer HTTP/1.1
+Content-Type: application/json
+
+#####
+
+GET http://localhost:3000/customer/af2fd8c0-16d4-4eea-9ba5-2f660aa815a0 HTTP/1.1
+Content-Type: application/json
+
+#####
+
+PUT http://localhost:3000/customer/ HTTP/1.1
+Content-Type: application/json
+ 
+
+ {
+    "id": "af2fd8c0-16d4-4eea-9ba5-2f660aa815a0",
+    "name": "Jane Doe",
+    "address": {
+        "street": "Main St",
+        "number": 123,
+        "city": "Anytown",
+        "zip": "12345678"
+    }
+}
+
+###### PRODUCT
+
+POST http://localhost:3000/product HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Café",
+    "price": 14.99
+}
+
+######
+
+GET http://localhost:3000/product HTTP/1.1
+Content-Type: application/json
+
+######
+
+GET http://localhost:3000/product/041e52f8-2506-452f-a28c-46ac792d9c36 HTTP/1.1
+Content-Type: application/json
+
+
+######
+
+PUT http://localhost:3000/product HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": "041e52f8-2506-452f-a28c-46ac792d9c36",
+  "name": "Leite",
+  "price": 5.69
+}
+
+######
+
+POST http://localhost:3000/order HTTP/1.1
+Content-Type: application/json
+
+{
+    "customerId": "7e7b3bd2-fd3e-455e-9888-e8df8cfdfefa",
+    "items": [
+        {
+            "productId": "add3bb19-98e5-44f9-94f2-2852f8522524",
+            "quantity": 2,
+            "name": "Café",
+            "price": 14.99
+        },
+        {            
+            "productId": "8f22da98-38c0-460b-9ba0-f74b829603a6",
+            "quantity": 3,
+            "name": "Leite",
+            "price": 5.69
+
+        }
+    ]
+}
+
+
+######
+
+GET http://localhost:3000/order HTTP/1.1
+Content-Type: application/json
+
+######
+
+GET http://localhost:3000/order/ad5f404f-2d11-4772-b3b4-cb7321074254 HTTP/1.1
+Content-Type: application/json
+

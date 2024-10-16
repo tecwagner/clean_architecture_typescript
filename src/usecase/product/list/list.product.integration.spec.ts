@@ -1,5 +1,5 @@
 import {Sequelize} from 'sequelize-typescript';
-import ProductFactory from '../../../domain/product/factory/product.factpry';
+import ProductFactory from '../../../domain/product/factory/product.factory';
 import ListProductsUseCase from './list.product.usecase';
 import ProductModel from '../../../infrastructure/sequelize/product/model/product.model';
 import ProductRepository from '../../../infrastructure/sequelize/product/repository/product.repository';

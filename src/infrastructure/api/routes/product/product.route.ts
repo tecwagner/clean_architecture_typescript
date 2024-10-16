@@ -61,8 +61,7 @@ productRoute.put('/', async (req: Request, res: Response) => {
 			price: req.body.price,
 		};
 		const output = await usecase.execute(productDto);
-
-		console.log('prod:', output);
+		
 		res.status(201).send(output);
 	} catch (error) {
 		res.status(500).send(error);

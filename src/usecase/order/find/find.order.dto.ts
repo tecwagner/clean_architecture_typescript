@@ -4,6 +4,7 @@ export interface InputFindOrderDto {
 export interface OutputFindOrderDto {
 	id: string;
 	customer_Id: string;
+	total: number;
 	items: {
 		id: string;
 		product_Id: string;
@@ -11,4 +12,5 @@ export interface OutputFindOrderDto {
 		quantity: number;
 		price: number;
 	}[];
+	
 }

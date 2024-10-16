@@ -14,6 +14,7 @@ export class OutputMapper {
 					quantity: item.quantity,
 					price: item.price,
 				})),
+				total: order.total(),
 			})),
 		};
 	}

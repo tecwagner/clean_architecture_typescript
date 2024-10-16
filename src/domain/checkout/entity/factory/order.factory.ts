@@ -1,6 +1,7 @@
 import Order from '../order';
 import OrderInterface from '../order.interface';
 import OrderItem from '../order_Item';
+import { v4 as uuidv4 } from 'uuid';
 
 interface IOrderFactory {
 	id: string;
@@ -18,7 +19,7 @@ export default class OrderFactory {
 	public static create(orderProps: IOrderFactory): Order {
 		const items = orderProps.items.map((item) => {
 			return new OrderItem(
-				item.id,
+				item.id || uuidv4(),
 				item.productId,
 				item.name,
 				item.quantity,
@@ -26,6 +27,6 @@ export default class OrderFactory {
 			);
 		});
 
-		return new Order(orderProps.id, orderProps.customerId, items);
+		return new Order(orderProps.id || uuidv4(), orderProps.customerId, items);
 	}
 }

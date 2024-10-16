@@ -4,12 +4,15 @@ import CustomerModel from '../sequelize/customer/model/customer.model';
 import {customerRoute} from './routes/customer/customer.route';
 import ProductModel from '../sequelize/product/model/product.model';
 import {productRoute} from './routes/product/product.route';
+import { orderRoute } from './routes/order/order.route';
+import OrderModel from '../sequelize/order/model/order.model';
+import OrderItemModel from '../sequelize/order/model/order-Item.model';
 
 export const app: Express = express();
 app.use(express.json());
 app.use('/customer', customerRoute);
 app.use('/product', productRoute);
-// app.use('/order', orderRoute);
+app.use('/order', orderRoute);
 export let sequelize: Sequelize;
 
 async function setupDb() {
@@ -20,7 +23,7 @@ async function setupDb() {
 		logging: false,
 	});
 
-	await sequelize.addModels([CustomerModel, ProductModel]);
+	sequelize.addModels([CustomerModel, ProductModel, OrderModel, OrderItemModel]);
 	await sequelize.sync();
 }
 

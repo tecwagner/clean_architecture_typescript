@@ -3,7 +3,7 @@ import ProductModel from '../../../infrastructure/sequelize/product/model/produc
 import ProductRepository from '../../../infrastructure/sequelize/product/repository/product.repository';
 import Product from '../../../domain/product/entity/product';
 import UpdateProductUseCase from './update.product.usecase';
-import ProductFactory from '../../../domain/product/factory/product.factpry';
+import ProductFactory from '../../../domain/product/factory/product.factory';
 
 describe('Integration test for product update use case', () => {
 	let sequelize: Sequelize;

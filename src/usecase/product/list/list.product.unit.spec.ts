@@ -1,4 +1,4 @@
-import ProductFactory from '../../../domain/product/factory/product.factpry';
+import ProductFactory from '../../../domain/product/factory/product.factory';
 import ListProductsUseCase from './list.product.usecase';
 
 const product1 = ProductFactory.create('Celular Moto G-20', 2000);

@@ -21,6 +21,10 @@
 
     - npx tsc
 
+# Comando para Executar os teste
+
+    - npm run test
+
 # Criando os UseCase
 
     - Os usecase é representado a intenção do usuário para executar uma determinada regra operacional ou interação do usuario.
@@ -140,3 +144,16 @@
     - Em src/infrastructure/api/routes
 
         - O nosso customer está configurado para retornar os dados seja em Json ou xml
+
+# Identificar e encerrar o processo pelo terminal
+
+    - Listar processos que estão usando a porta 3000: Execute o comando abaixo para encontrar o processo que está usando a porta 3000:
+
+        bash
+        sudo lsof -i :3000
+
+    - Encerrar o processo: Após executar o comando acima, você verá uma lista de processos usando a porta. Localize o PID (Process ID) do processo que está utilizando a porta e então execute o seguinte comando para matá-lo:
+
+        bash
+        Copiar código
+        sudo kill -9 <PID>

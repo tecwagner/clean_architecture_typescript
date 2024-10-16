@@ -26,7 +26,7 @@ export default class OrderItemModel extends Model {
 
 	// Relacionando o orders ao produto
 	@BelongsTo(() => OrderModel)
-	declare order: ProductModel;
+	declare order: OrderModel;
 
 	// Relacionando o produtos pelo id
 	@ForeignKey(() => ProductModel)

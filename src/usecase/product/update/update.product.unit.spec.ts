@@ -1,4 +1,4 @@
-import ProductFactory from '../../../domain/product/factory/product.factpry';
+import ProductFactory from '../../../domain/product/factory/product.factory';
 import ProductService from '../../../domain/product/service/product.service';
 import UpdateProductUseCase from './update.product.usecase';
 

@@ -7,7 +7,7 @@ import OrderInterface from '../../../../domain/checkout/entity/order.interface';
 
 export default class OrderRepository implements OrderRepositoryInterface {
 	async create(order: Order): Promise<void> {
-		console.log('create order FK:', order);
+		
 		try {
 			await OrderModel.create(
 				{
@@ -67,8 +67,6 @@ export default class OrderRepository implements OrderRepositoryInterface {
 				include: [OrderItemModel],
 			});
 
-			console.log(orderModel);
-
 			if (!orderModel) {
 				throw new Error('Unable to find order items');
 			}
@@ -90,7 +88,12 @@ export default class OrderRepository implements OrderRepositoryInterface {
 
 	async findAll(): Promise<Order[]> {
 		try {
-			const orderModels = await OrderModel.findAll();
+			const orderModels = await OrderModel.findAll({
+				include: [{
+					model: OrderItemModel,
+					as: 'items' 
+				}]
+			});
 
 			const orders = orderModels.map((orderModel) => {
 				const orderItems = orderModel.items.map(

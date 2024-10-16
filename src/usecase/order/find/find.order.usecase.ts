@@ -13,7 +13,7 @@ export default class FindOrderUseCase {
 
 		return {
 			id: order.id,
-			customer_Id: order.customerId,
+			customer_Id: order.customerId,			
 			items: order.items.map((item) => ({
 				id: item.id,
 				product_Id: item.productId,
@@ -21,6 +21,7 @@ export default class FindOrderUseCase {
 				quantity: item.quantity,
 				price: item.price,
 			})),
+			total: order.total(),
 		};
 	}
 }
